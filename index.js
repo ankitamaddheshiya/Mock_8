@@ -1,14 +1,21 @@
 const express = require("express")
-const {connection} = require("./config/db")
-const {userRouter} = require("./routes//user.route")
-const { olxRouter } = require("./routes/olx.model")
-const { authenticate } = require("./middleware/auth.middleware")
 const cors = require("cors")
 require("dotenv").config()
+const {connection} = require("./config/db")
+
+const {userRouter} = require("./routes//user.route")
+
+const { olxRouter } = require("./routes/olx.route")
+const { authenticate } = require("./middleware/auth.middleware")
+
+
+
 
 const app = express()
-app.use(cors)
+
 app.use(express.json())
+app.use(cors())
+
 
 
 app.get("/",(req,res)=>{
@@ -21,7 +28,7 @@ app.use("/olx",olxRouter)
 
 
 
-app.listen(process.env.port,async()=>{
+app.listen(8000,async()=>{
     try{
         await connection
         console.log("server is running at port 8000")  
